@@ -1,6 +1,11 @@
 spring:
   profiles:
     active: dev
+  cache:
+    type: caffeine
+    cache-names: telegramFiles
+    caffeine:
+      spec: maximumSize=1000,expireAfterWrite=24h
 
   jpa:
     hibernate:
