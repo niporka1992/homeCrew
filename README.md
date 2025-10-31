@@ -83,11 +83,16 @@ npm run dev
 
 2. **Укажи в `application.yml` или `.env` значения:**
    ```yaml
-   app:
-     admin:
-       chat-id: 123456789
-       group-id: -100987654321
-       default-password: "admin123"
+  app:
+  telegram:
+    token:                # Токен Telegram-бота (из @BotFather)
+    group-chat-id:        # ID группового чата для уведомлений (обычно отрицательное число, например -1001234567890)
+    admin:
+      chatId:             # Telegram ID администратора (для личных уведомлений и логов)
+  admin:
+    default-password:     # Пароль по умолчанию для системного администратора приложения
+  jwt:
+    secret:               # Секретный ключ для подписи и проверки JWT-токенов (используется в механизме аутентификации)
    ```
 
 3. **Собери backend:**
