@@ -1,6 +1,6 @@
 # 🏗️ HomeCrew — модульный проект
 
-**HomeCrew** — многоуровневое приложение, включающее backend на **Spring Boot (Gradle)** и frontend на **React + Node.js**.  
+**HomeCrew** — многоуровневое приложение, включающее backend на **Spring Boot (Gradle)** и frontend на **React**.  
 Проект разделён на три модуля backend'а и один фронтовый клиент.
 
 ---
@@ -12,7 +12,7 @@ homeCrew/
 ├── app/         # Главный модуль запуска (Spring Boot)
 ├── core/        # Ядро системы — бизнес-логика, сервисы, JPA и утилиты
 ├── bot/         # Telegram-бот, использующий core
-├── frontend/    # React / Node.js клиент
+├── frontend/    # React клиент
 └── build.gradle.kts  # Корневой Gradle-скрипт (сборка и управление)
 ```
 
@@ -60,7 +60,7 @@ java -jar app/build/libs/app-1.0.0.jar --spring.profiles.active=dev
 ---
 
 ### **4. `frontend/` — React-клиент**
-Frontend на Node.js (React, TypeScript или JavaScript).
+Frontend на  React .
 
 📦 Установка зависимостей:
 ```bash
@@ -81,7 +81,7 @@ npm run dev
    docker run -d      --name homecrew-postgres      -e POSTGRES_USER=root      -e POSTGRES_PASSWORD=root      -e POSTGRES_DB=homecrew_dev      -p 5432:5432      postgres:18
    ```
 
-2. **Укажи в `application.yml` или значения:**
+2. **Укажи в `application-dev.yml` или значения:**
 
 ```yaml
 app:
