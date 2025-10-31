@@ -39,14 +39,17 @@ public abstract class BaseEntity {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof BaseEntity entity)) {
+        if (o == null || getClass() != o.getClass()){
             return false;
         }
-        return id != null && id.equals(entity.id);
+        BaseEntity that = (BaseEntity) o;
+        return id != null && id.equals(that.id);
     }
+
 
     @Override
     public int hashCode() {
-        return 31;
+        return id != null ? id.hashCode() : System.identityHashCode(this);
     }
+
 }
