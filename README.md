@@ -81,9 +81,10 @@ npm run dev
    docker run -d      --name homecrew-postgres      -e POSTGRES_USER=root      -e POSTGRES_PASSWORD=root      -e POSTGRES_DB=homecrew_dev      -p 5432:5432      postgres:18
    ```
 
-2. **Укажи в `application.yml` или `.env` значения:**
-   ```yaml
-  app:
+2. **Укажи в `application.yml` или значения:**
+
+```yaml
+app:
   telegram:
     token:                # Токен Telegram-бота (из @BotFather)
     group-chat-id:        # ID группового чата для уведомлений (обычно отрицательное число, например -1001234567890)
@@ -93,7 +94,7 @@ npm run dev
     default-password:     # Пароль по умолчанию для системного администратора приложения
   jwt:
     secret:               # Секретный ключ для подписи и проверки JWT-токенов (используется в механизме аутентификации)
-   ```
+```
 
 3. **Собери backend:**
    ```bash
