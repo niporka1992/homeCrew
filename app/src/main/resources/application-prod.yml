@@ -1,0 +1,36 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://prod-db:5432/homecrew_prod
+    username:
+    password:
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 20
+
+server:
+  http-port: 80
+  https-port: 443
+
+ssl:
+  keystore:
+    file: your_domain.jks
+    alias: your_domain
+    password:
+
+admin:
+  default-password:
+
+telegram:
+  group-chat-id:
+  admin:
+    chatId:
+  token:
+
+app:
+  jwt:
+    secret:
+    expiration-ms: 31536000000
+  cors:
+    allowed-origins:
+      - " "
+

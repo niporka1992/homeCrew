@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/homecrew_dev
+    username: root
+    password: root
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+
+server:
+  http-port: 1111
+  https-port: 4174
+
+admin:
+  default-password: admin
+
+telegram:
+  admin:
+    chatId:
+  token:
+
+app:
+  jwt:
+    secret: kz3O7G7U0tNw1P121212n6zXZbLE12cbm7d455555dyZyMk=
+    expiration-ms: 31536000000

@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/homecrew_dev
+    username: root
+    password: root
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+
+server:
+  http-port: 25186
+  https-port: 4174
+  https-enabled: false
+
+ssl:
+  keystore:
+    file: your_domain.jks
+    alias: your_domain
+    password:
+
+admin:
+  default-password: adminNnNn123#saa
+
+telegram:
+  group-chat-id: -4821370932
+  admin:
+    chatId: 420156635
+  token: 8363782141:AAFrNEpFxw0vR01AciKdKOv9AV7_q_7gvA4
+
+app:
+  jwt:
+    secret: kz3O7G7U0tNw1P121212n6zXZbLE12cbm7d455555dyZyMk=
+    expiration-ms: 31536000000
