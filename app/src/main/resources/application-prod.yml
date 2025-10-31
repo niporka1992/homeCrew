@@ -17,20 +17,14 @@ ssl:
     alias: your_domain
     password:
 
-admin:
-  default-password:
-
-telegram:
-  group-chat-id:
-  admin:
-    chatId:
-  token:
-
 app:
+  telegram:
+    token:
+    group-chat-id:
+    admin:
+      chatId:
+  admin:
+    default-password:
   jwt:
     secret:
     expiration-ms: 31536000000
-  cors:
-    allowed-origins:
-      - " "
-

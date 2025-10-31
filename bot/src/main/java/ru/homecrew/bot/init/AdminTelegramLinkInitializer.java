@@ -20,7 +20,7 @@ public class AdminTelegramLinkInitializer {
     private final ExternalLinkUserService linkService;
     private final UserExternalIdsRepository linkRepo;
 
-    @Value("${telegram.admin.chatId}")
+    @Value("${app.telegram.admin.chatId}")
     private Long mainAdminId;
 
     @PostConstruct

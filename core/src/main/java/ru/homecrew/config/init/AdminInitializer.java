@@ -20,7 +20,7 @@ public class AdminInitializer {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
 
-    @Value("${admin.default-password:admin}")
+    @Value("${app.admin.default-password:admin}")
     private String defaultAdminPassword;
 
     @Value("${spring.profiles.active:dev}")

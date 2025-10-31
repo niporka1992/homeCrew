@@ -17,7 +17,7 @@ public class BotRegistrar {
     private final TelegramBotsLongPollingApplication botsApp;
     private final HomeCrewBot homeCrewBot;
 
-    @Value("${telegram.token}")
+    @Value("${app.telegram.token}")
     private String token;
 
     @EventListener(org.springframework.boot.context.event.ApplicationReadyEvent.class)

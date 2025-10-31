@@ -28,7 +28,7 @@ public class TelegramFileService implements FileService {
     private final RestTemplate restTemplate = new RestTemplate();
     private final ApplicationContext context;
 
-    @Value("${telegram.token}")
+    @Value("${app.telegram.token}")
     private String botToken;
 
     private static final String TELEGRAM_API_BASE = "https://api.telegram.org";

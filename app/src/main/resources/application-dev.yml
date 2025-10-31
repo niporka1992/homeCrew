@@ -1,3 +1,4 @@
+
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/homecrew_dev
@@ -18,16 +19,14 @@ ssl:
     alias: your_domain
     password:
 
-admin:
-  default-password: adminNnNn123#saa
-
-telegram:
-  group-chat-id: -4821370932
-  admin:
-    chatId: 420156635
-  token: 8363782141:AAFrNEpFxw0vR01AciKdKOv9AV7_q_7gvA4
-
 app:
+  telegram:
+    token: 8363782141:AAFrNEpFxw0vR01AciKdKOv9AV7_q_7gvA4
+    group-chat-id: -4821370932
+    admin:
+      chatId: 420156635
+  admin:
+    default-password: adminNnNn123#saa
   jwt:
     secret: kz3O7G7U0tNw1P121212n6zXZbLE12cbm7d455555dyZyMk=
     expiration-ms: 31536000000

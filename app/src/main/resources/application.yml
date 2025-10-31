@@ -18,7 +18,3 @@ logging:
     org.hibernate.SQL: info
     org.hibernate.type.descriptor.sql.BasicBinder: info
 
-app:
-  jwt:
-    secret: kz3O7G7U0tNw1Pn6zXZbLE12cbm7yZyMMG0YfD9hX0k=
-    expiration-ms: 31536000000  # 1 год

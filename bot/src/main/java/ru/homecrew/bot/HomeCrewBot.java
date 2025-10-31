@@ -24,7 +24,7 @@ public class HomeCrewBot implements LongPollingUpdateConsumer {
     private final ExternalLinkUserService userService;
     private final MediaInputProcessor inputProcessor;
 
-    @Value("${telegram.admin.chatId}")
+    @Value("${app.telegram.admin.chatId}")
     private Long mainAdminId;
 
     @Override

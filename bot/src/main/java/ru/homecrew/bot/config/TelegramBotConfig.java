@@ -15,13 +15,13 @@ public class TelegramBotConfig {
 
     @Bean
     @Profile("dev")
-    public OkHttpTelegramClient devTelegramClient(@Value("${telegram.token}") String token) {
+    public OkHttpTelegramClient devTelegramClient(@Value("${app.telegram.token}") String token) {
         return new OkHttpTelegramClient(token);
     }
 
     @Bean
     @Profile("prod")
-    public OkHttpTelegramClient prodTelegramClient(@Value("${telegram.token}") String token) {
+    public OkHttpTelegramClient prodTelegramClient(@Value("${app.telegram.token}") String token) {
         return new OkHttpTelegramClient(token);
     }
 

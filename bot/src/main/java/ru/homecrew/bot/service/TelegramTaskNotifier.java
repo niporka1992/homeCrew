@@ -17,7 +17,7 @@ public class TelegramTaskNotifier implements TaskNotificationService {
 
     private final BotMessenger messenger;
 
-    @Value("${telegram.group-chat-id}")
+    @Value("${app.telegram.group-chat-id}")
     private Long groupChatId;
 
     @Override

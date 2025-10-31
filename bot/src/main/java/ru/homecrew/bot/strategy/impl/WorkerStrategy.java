@@ -51,7 +51,7 @@ public class WorkerStrategy implements BotUserStrategy {
     private final TaskAttachmentService attachmentService;
     private final TaskHistoryService historyService;
 
-    @Value("${telegram.group-chat-id}")
+    @Value("${app.telegram.group-chat-id}")
     private Long groupChatId;
 
     private final Map<String, BiConsumer<String, BotContext>> callbackHandlers = new LinkedHashMap<>();
