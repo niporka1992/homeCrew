@@ -109,18 +109,18 @@ public class TaskServiceImpl implements TaskService {
         TaskStatus parsedStatus = parseStatus(status);
 
         if (parsedStatus == null && userId == null) {
-            return mapper.toDtoList(taskRepository.findAll());
+            return mapper.toDtoListSortedDesc(taskRepository.findAll());
         }
 
         if (parsedStatus != null && userId != null) {
-            return mapper.toDtoList(taskRepository.findByStatusAndAssignee_Id(parsedStatus, userId));
+            return mapper.toDtoListSortedDesc(taskRepository.findByStatusAndAssignee_Id(parsedStatus, userId));
         }
 
         if (parsedStatus != null) {
-            return mapper.toDtoList(taskRepository.findByStatus(parsedStatus));
+            return mapper.toDtoListSortedDesc(taskRepository.findByStatus(parsedStatus));
         }
 
-        return mapper.toDtoList(taskRepository.findByAssignee_Id(userId));
+        return mapper.toDtoListSortedDesc(taskRepository.findByAssignee_Id(userId));
     }
 
     @Override

@@ -197,7 +197,7 @@ class TaskServiceImplTest {
     @DisplayName("getTasks(): возвращает все задачи без фильтра")
     void getTasks_all() {
         when(taskRepository.findAll()).thenReturn(List.of(task));
-        when(mapper.toDtoList(any())).thenReturn(List.of(taskDto));
+        when(mapper.toDtoListSortedDesc(any())).thenReturn(List.of(taskDto));
 
         List<TaskDto> result = service.getTasks(null, null);
         assertEquals(1, result.size());
@@ -207,7 +207,7 @@ class TaskServiceImplTest {
     @DisplayName("getTasks(): фильтрует по статусу и пользователю")
     void getTasks_byStatusAndUser() {
         when(taskRepository.findByStatusAndAssignee_Id(TaskStatus.NEW, 1L)).thenReturn(List.of(task));
-        when(mapper.toDtoList(any())).thenReturn(List.of(taskDto));
+        when(mapper.toDtoListSortedDesc(any())).thenReturn(List.of(taskDto));
 
         List<TaskDto> result = service.getTasks("NEW", 1L);
         assertEquals(1, result.size());

@@ -1,5 +1,6 @@
 package ru.homecrew.mapper;
 
+import java.util.Comparator;
 import java.util.List;
 import org.mapstruct.*;
 import org.springframework.lang.Nullable;
@@ -23,6 +24,17 @@ public interface TaskMapper {
     @Mapping(target = "dateOfCreate", source = "createdAt")
     @Mapping(target = "title", ignore = true)
     TaskDto toDto(Task entity);
+
+    /**
+     * Маппинг списка задач в список DTO с обратной сортировкой по дате создания (новые — первыми).
+     */
+    default List<TaskDto> toDtoListSortedDesc(@Nullable List<Task> entities) {
+        if (entities == null || entities.isEmpty()) return List.of();
+        return entities.stream()
+                .sorted(Comparator.comparing(Task::getCreatedAt).reversed())
+                .map(this::toDto)
+                .toList();
+    }
 
     /** Маппинг списка задач в список DTO. */
     default List<TaskDto> toDtoList(@Nullable List<Task> entities) {
