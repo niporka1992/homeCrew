@@ -209,12 +209,27 @@ export default function TasksContainer() {
                             ]}
                         />
 
+                        {/* 🔄 Кнопка обновления */}
                         <Button
                             icon={<ReloadOutlined />}
                             onClick={loadTasks}
                             loading={loading}
                         />
+
+                        {/* 🧹 Кнопка сброса фильтров */}
+                        <Button
+                            type="default"
+                            danger
+                            onClick={() => {
+                                setStatus('')
+                                setSelectedUserFullName(null)
+                                loadTasks()
+                            }}
+                        >
+                            Сбросить фильтры
+                        </Button>
                     </Space>
+
                 </div>
 
                 <Table

@@ -39,6 +39,7 @@ export default function ChangePasswordModal({ open, user, saving, onCancel, onSa
             }
             open={open}
             onCancel={onCancel}
+            cancelText={"Отмена"}
             onOk={handleOk}
             okText="Сменить пароль"
             confirmLoading={saving}

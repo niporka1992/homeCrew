@@ -133,9 +133,15 @@ export default function Scheduler() {
             key: 'action',
             align: 'center',
             render: (_, record) => {
+                // если задача завершена — никаких действий
+                if (record.status === 'COMPLETE') {
+                    return <Text type="secondary">—</Text>
+                }
+
                 const isActive = record.status === 'NORMAL'
                 const shouldActivate = !isActive
                 const buttonLabel = shouldActivate ? 'Старт' : 'Пауза'
+
                 return (
                     <Tooltip title={shouldActivate ? 'Возобновить' : 'Поставить на паузу'}>
                         <Button
@@ -155,7 +161,9 @@ export default function Scheduler() {
                     </Tooltip>
                 )
             },
-        },
+        }
+
+
     ]
 
     const handleCreateSuccess = () => {

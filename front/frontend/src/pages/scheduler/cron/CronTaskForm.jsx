@@ -1,20 +1,8 @@
-import { useState } from 'react'
-import {
-    Form,
-    Input,
-    Select,
-    DatePicker,
-    TimePicker,
-    Button,
-    Divider,
-    Row,
-    Col,
-    Alert,
-    message,
-} from 'antd'
+import {useState} from 'react'
+import {Alert, Button, Col, DatePicker, Divider, Form, Input, message, Row, Select, TimePicker,} from 'antd'
 import dayjs from 'dayjs'
 import 'dayjs/locale/ru'
-import { api } from '../../../api/api.js'
+import {api} from '../../../api/api.js'
 
 import DailyMode from './CronTaskForm/DailyMode.jsx'
 import WeeklyMode from './CronTaskForm/WeeklyMode.jsx'
@@ -22,30 +10,34 @@ import MonthlyMode from './CronTaskForm/MonthlyMode.jsx'
 import YearlyMode from './CronTaskForm/YearlyMode.jsx'
 import CustomCronMode from './CronTaskForm/CustomCronMode.jsx'
 
-const { Option } = Select
+const {Option} = Select
 
-export default function CronTaskForm({ onSuccess }) {
+export default function CronTaskForm({onSuccess}) {
     const [form] = Form.useForm()
     const [mode, setMode] = useState('DAILY')
     const [loading, setLoading] = useState(false)
     const [timeError, setTimeError] = useState(null)
 
-    // === Проверка дат ===
+// === Проверка дат ===
     const validateDateTime = (startDate, startTime, endDate, endTime) => {
-        if (!startDate || !startTime) return null
+        if (!startDate || !startTime) return null;
 
-        const start = dayjs(`${startDate.format('YYYY-MM-DD')} ${startTime.format('HH:mm')}`)
-        const now = dayjs()
+        const start = dayjs(`${startDate.format('YYYY-MM-DD')} ${startTime.format('HH:mm')}`);
+        const now = dayjs();
 
-        if (start.isBefore(now)) return '⛔ Время начала не может быть в прошлом'
+        // Сравнение только по минутам — текущее время не считается прошлым
+        if (start.isBefore(now, 'minute'))
+            return '⛔ Время начала не может быть в прошлом';
 
         if (endDate && endTime) {
-            const end = dayjs(`${endDate.format('YYYY-MM-DD')} ${endTime.format('HH:mm')}`)
-            if (end.isBefore(start)) return '⛔ Время окончания не может быть раньше времени начала'
+            const end = dayjs(`${endDate.format('YYYY-MM-DD')} ${endTime.format('HH:mm')}`);
+            if (end.isBefore(start))
+                return '⛔ Время окончания не может быть раньше времени начала';
         }
 
-        return null
-    }
+        return null;
+    };
+
 
     // === Сборка payload ===
     const buildPayload = (values) => {
@@ -59,12 +51,18 @@ export default function CronTaskForm({ onSuccess }) {
         }
 
         switch (mode) {
-            case 'DAILY': return base
-            case 'WEEKLY': return { ...base, daysOfWeek: values.daysOfWeek }
-            case 'MONTHLY': return { ...base, daysOfMonth: values.daysOfMonth }
-            case 'YEARLY': return { ...base, months: values.months }
-            case 'CUSTOM': return { ...base, customCron: values.customCron }
-            default: throw new Error(`Неизвестный режим: ${mode}`)
+            case 'DAILY':
+                return base
+            case 'WEEKLY':
+                return {...base, daysOfWeek: values.daysOfWeek}
+            case 'MONTHLY':
+                return {...base, daysOfMonth: values.daysOfMonth}
+            case 'YEARLY':
+                return {...base, months: values.months}
+            case 'CUSTOM':
+                return {...base, customCron: values.customCron}
+            default:
+                throw new Error(`Неизвестный режим: ${mode}`)
         }
     }
 
@@ -115,12 +113,18 @@ export default function CronTaskForm({ onSuccess }) {
 
     const renderModeForm = () => {
         switch (mode) {
-            case 'DAILY': return <DailyMode />
-            case 'WEEKLY': return <WeeklyMode />
-            case 'MONTHLY': return <MonthlyMode />
-            case 'YEARLY': return <YearlyMode />
-            case 'CUSTOM': return <CustomCronMode />
-            default: return null
+            case 'DAILY':
+                return <DailyMode/>
+            case 'WEEKLY':
+                return <WeeklyMode/>
+            case 'MONTHLY':
+                return <MonthlyMode/>
+            case 'YEARLY':
+                return <YearlyMode/>
+            case 'CUSTOM':
+                return <CustomCronMode/>
+            default:
+                return null
         }
     }
 
@@ -129,7 +133,7 @@ export default function CronTaskForm({ onSuccess }) {
             layout="vertical"
             form={form}
             onFinish={handleSubmit}
-            style={{ marginTop: 8 }}
+            style={{marginTop: 8}}
             initialValues={{
                 mode: 'DAILY',
                 startDate: dayjs(),
@@ -139,15 +143,15 @@ export default function CronTaskForm({ onSuccess }) {
             <Form.Item
                 label="Имя задачи"
                 name="jobName"
-                rules={[{ required: true, message: 'Введите имя задачи' }]}
+                rules={[{required: true, message: 'Введите имя задачи'}]}
             >
-                <Input placeholder="Например: проверка отчётов" />
+                <Input placeholder="Например: проверка отчётов"/>
             </Form.Item>
 
             <Form.Item
                 label="Тип расписания"
                 name="mode"
-                rules={[{ required: true, message: 'Выберите тип расписания' }]}
+                rules={[{required: true, message: 'Выберите тип расписания'}]}
             >
                 <Select onChange={setMode}>
                     <Option value="DAILY">Ежедневно</Option>
@@ -160,7 +164,7 @@ export default function CronTaskForm({ onSuccess }) {
 
             {renderModeForm()}
 
-            <Divider style={{ margin: '12px 0' }} />
+            <Divider style={{margin: '12px 0'}}/>
 
             {mode !== 'CUSTOM' && (
                 <>
@@ -169,11 +173,11 @@ export default function CronTaskForm({ onSuccess }) {
                             <Form.Item
                                 label="Дата начала"
                                 name="startDate"
-                                rules={[{ required: true, message: 'Выберите дату начала' }]}
+                                rules={[{required: true, message: 'Выберите дату начала'}]}
                             >
                                 <DatePicker
                                     format="DD.MM.YYYY"
-                                    style={{ width: '100%' }}
+                                    style={{width: '100%'}}
                                     onChange={handleDateOrTimeChange}
                                 />
                             </Form.Item>
@@ -182,11 +186,11 @@ export default function CronTaskForm({ onSuccess }) {
                             <Form.Item
                                 label="Время начала"
                                 name="startTime"
-                                rules={[{ required: true, message: 'Выберите время начала' }]}
+                                rules={[{required: true, message: 'Выберите время начала'}]}
                             >
                                 <TimePicker
                                     format="HH:mm"
-                                    style={{ width: '100%' }}
+                                    style={{width: '100%'}}
                                     onChange={handleDateOrTimeChange}
                                 />
                             </Form.Item>
@@ -198,7 +202,7 @@ export default function CronTaskForm({ onSuccess }) {
                             <Form.Item label="Дата окончания" name="endDate">
                                 <DatePicker
                                     format="DD.MM.YYYY"
-                                    style={{ width: '100%' }}
+                                    style={{width: '100%'}}
                                     onChange={handleDateOrTimeChange}
                                 />
                             </Form.Item>
@@ -207,7 +211,7 @@ export default function CronTaskForm({ onSuccess }) {
                             <Form.Item label="Время окончания" name="endTime">
                                 <TimePicker
                                     format="HH:mm"
-                                    style={{ width: '100%' }}
+                                    style={{width: '100%'}}
                                     onChange={handleDateOrTimeChange}
                                 />
                             </Form.Item>
@@ -221,12 +225,12 @@ export default function CronTaskForm({ onSuccess }) {
             </Button>
 
             {timeError && (
-                <div style={{ marginTop: 16 }}>
+                <div style={{marginTop: 16}}>
                     <Alert
                         message={timeError}
                         type="error"
                         showIcon
-                        style={{ textAlign: 'left' }}
+                        style={{textAlign: 'left'}}
                     />
                 </div>
             )}

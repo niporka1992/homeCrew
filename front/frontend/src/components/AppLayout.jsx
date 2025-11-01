@@ -1,9 +1,10 @@
-import { Layout, Menu, theme } from 'antd'
+import { Layout, Menu, Button, Space, theme, App, Tooltip } from 'antd'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import {
     DashboardOutlined,
     TeamOutlined,
     CheckCircleOutlined,
+    LogoutOutlined,
 } from '@ant-design/icons'
 
 const { Header, Content, Footer } = Layout
@@ -12,13 +13,16 @@ export default function AppLayout() {
     const { token } = theme.useToken()
     const location = useLocation()
     const navigate = useNavigate()
+    const { message } = App.useApp()
 
+    // === Определяем активный пункт меню ===
     const current = location.pathname.startsWith('/users')
         ? 'users'
         : location.pathname.startsWith('/tasks')
             ? 'tasks'
             : 'dashboard'
 
+    // === Пункты меню ===
     const items = [
         {
             key: 'dashboard',
@@ -40,22 +44,24 @@ export default function AppLayout() {
         },
     ]
 
+    // === Клиентский logout ===
+    const handleLogout = () => {
+        localStorage.removeItem('token')
+        message.info('Вы вышли из системы')
+        navigate('/login')
+    }
+
     return (
         <div
             style={{
                 width: '100%',
-                minHeight: '100dvh', // ✅ учитывает мобильные браузеры
+                minHeight: '100dvh',
                 overflowX: 'hidden',
                 overflowY: 'auto',
-                background: '#0d0d0d', // тянет фон до краёв
+                background: '#0d0d0d',
             }}
         >
-            <Layout
-                style={{
-                    minHeight: '100%',
-                    background: '#0d0d0d',
-                }}
-            >
+            <Layout style={{ minHeight: '100%', background: '#0d0d0d' }}>
                 <Header
                     style={{
                         background: '#141414',
@@ -67,7 +73,6 @@ export default function AppLayout() {
                         zIndex: 2,
                     }}
                 >
-
                     <Menu
                         theme="dark"
                         mode="horizontal"
@@ -80,6 +85,23 @@ export default function AppLayout() {
                             minWidth: 0,
                         }}
                     />
+
+                    {/* 🔹 Кнопка "Выйти" справа */}
+                    <Space>
+                        <Tooltip title="Выйти из системы">
+                            <Button
+                                type="text"
+                                icon={<LogoutOutlined style={{ color: '#ff7875', fontSize: 18 }} />}
+                                onClick={handleLogout}
+                                style={{
+                                    color: '#ff7875',
+                                    fontWeight: 500,
+                                }}
+                            >
+                                Выйти
+                            </Button>
+                        </Tooltip>
+                    </Space>
                 </Header>
 
                 <Content

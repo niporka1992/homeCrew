@@ -37,6 +37,7 @@ export default function UserEditModal({ open, user, saving, onCancel, onSave }) 
             title={`👤 ${user ? user.username : 'Редактирование пользователя'}`}
             open={open}
             onCancel={onCancel}
+            cancelText={"Отмена"}
             onOk={handleOk}
             okText="Сохранить"
             confirmLoading={saving}
