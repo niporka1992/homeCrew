@@ -5,10 +5,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.homecrew.bot.util.CallbackFactory;
 import ru.homecrew.dto.task.TaskDto;
+import ru.homecrew.model.interaction.ActionGroup;
+import ru.homecrew.model.interaction.ActionLayout;
+import ru.homecrew.model.interaction.ActionOption;
 import ru.homecrew.service.BotMessenger;
-import ru.homecrew.service.bot.ui.UiButton;
-import ru.homecrew.service.bot.ui.UiKeyboard;
-import ru.homecrew.service.bot.ui.UiKeyboardRow;
 import ru.homecrew.service.notification.TaskNotificationService;
 
 @Service
@@ -32,8 +32,8 @@ public class TelegramTaskNotifier implements TaskNotificationService {
 
         text.append("Кто возьмёт задачу?");
 
-        UiKeyboard keyboard =
-                UiKeyboard.ofRows(UiKeyboardRow.of(new UiButton("✅ Взять", CallbackFactory.takeTask(task.id()))));
+        ActionLayout keyboard =
+                ActionLayout.ofGroups(ActionGroup.of(new ActionOption("✅ Взять", CallbackFactory.takeTask(task.id()))));
 
         messenger.sendMessageWithKeyboard(groupChatId, text.toString(), keyboard);
     }

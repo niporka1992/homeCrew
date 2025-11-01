@@ -10,10 +10,10 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import ru.homecrew.model.interaction.ActionGroup;
+import ru.homecrew.model.interaction.ActionLayout;
+import ru.homecrew.model.interaction.ActionOption;
 import ru.homecrew.service.BotMessenger;
-import ru.homecrew.service.bot.ui.UiButton;
-import ru.homecrew.service.bot.ui.UiKeyboard;
-import ru.homecrew.service.bot.ui.UiKeyboardRow;
 
 @Slf4j
 @Service
@@ -33,7 +33,7 @@ public class BotMessengerImpl implements BotMessenger {
     }
 
     @Override
-    public void sendMessageWithKeyboard(Long chatId, String text, UiKeyboard keyboard) {
+    public void sendMessageWithKeyboard(Long chatId, String text, ActionLayout keyboard) {
         try {
             InlineKeyboardMarkup markup = convertKeyboard(keyboard);
             SendMessage msg = SendMessage.builder()
@@ -48,8 +48,8 @@ public class BotMessengerImpl implements BotMessenger {
         }
     }
 
-    private InlineKeyboardMarkup convertKeyboard(UiKeyboard keyboard) {
-        List<InlineKeyboardRow> rows = keyboard.rows().stream()
+    private InlineKeyboardMarkup convertKeyboard(ActionLayout keyboard) {
+        List<InlineKeyboardRow> rows = keyboard.groups().stream()
                 .map(this::convertRow)
                 .map(InlineKeyboardRow::new)
                 .toList();
@@ -57,13 +57,13 @@ public class BotMessengerImpl implements BotMessenger {
         return new InlineKeyboardMarkup(rows);
     }
 
-    private List<InlineKeyboardButton> convertRow(UiKeyboardRow row) {
-        return row.buttons().stream().map(this::convertButton).toList();
+    private List<InlineKeyboardButton> convertRow(ActionGroup row) {
+        return row.actions().stream().map(this::convertButton).toList();
     }
 
-    private InlineKeyboardButton convertButton(UiButton button) {
+    private InlineKeyboardButton convertButton(ActionOption button) {
         InlineKeyboardButton tgBtn = new InlineKeyboardButton(button.label());
-        tgBtn.setCallbackData(button.callbackData());
+        tgBtn.setCallbackData(button.actionCode());
         return tgBtn;
     }
 }

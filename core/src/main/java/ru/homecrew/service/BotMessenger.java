@@ -1,6 +1,6 @@
 package ru.homecrew.service;
 
-import ru.homecrew.service.bot.ui.UiKeyboard;
+import ru.homecrew.model.interaction.ActionLayout;
 
 /**
  * Универсальный интерфейс для отправки сообщений в мессенджеры.
@@ -11,7 +11,7 @@ public interface BotMessenger {
     void sendMessage(Long chatId, String text);
 
     /** Отправка сообщения с inline-кнопками */
-    void sendMessageWithKeyboard(Long chatId, String text, UiKeyboard keyboard);
+    void sendMessageWithKeyboard(Long chatId, String text, ActionLayout keyboard);
 
     /** Экранирование MarkdownV2 символов */
     default String escapeMarkdown(String text) {

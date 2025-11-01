@@ -25,11 +25,11 @@ import ru.homecrew.entity.UserExternalIds;
 import ru.homecrew.enums.Role;
 import ru.homecrew.enums.TaskActionType;
 import ru.homecrew.enums.TaskStatus;
+import ru.homecrew.model.interaction.ActionGroup;
+import ru.homecrew.model.interaction.ActionLayout;
+import ru.homecrew.model.interaction.ActionOption;
 import ru.homecrew.repository.UserExternalIdsRepository;
 import ru.homecrew.service.BotMessenger;
-import ru.homecrew.service.bot.ui.UiButton;
-import ru.homecrew.service.bot.ui.UiKeyboard;
-import ru.homecrew.service.bot.ui.UiKeyboardRow;
 import ru.homecrew.service.task.TaskAttachmentService;
 import ru.homecrew.service.task.TaskCommentService;
 import ru.homecrew.service.task.TaskHistoryService;
@@ -69,8 +69,8 @@ public class WorkerStrategy implements BotUserStrategy {
     // ====================== MENU ======================
     @Override
     public void showMenu(BotContext ctx) {
-        UiKeyboard keyboard =
-                UiKeyboard.ofRows(UiKeyboardRow.of(new UiButton("📋 Мои задачи", CallbackFactory.PREFIX_TASKS)));
+        ActionLayout keyboard =
+                ActionLayout.ofGroups(ActionGroup.of(new ActionOption("📋 Мои задачи", CallbackFactory.PREFIX_TASKS)));
 
         messenger.sendMessageWithKeyboard(
                 ctx.getChatId(),
@@ -123,10 +123,10 @@ public class WorkerStrategy implements BotUserStrategy {
         }
 
         String sb = "📋 *Мои задачи:*\n\n";
-        UiKeyboard keyboard = new UiKeyboard();
+        ActionLayout keyboard = new ActionLayout();
 
         for (TaskDto t : tasks) {
-            keyboard.addRow(new UiButton("➡️ " + t.description(), CallbackFactory.PREFIX_TASK + t.id()));
+            keyboard.addGroup(new ActionOption("➡️ " + t.description(), CallbackFactory.PREFIX_TASK + t.id()));
         }
 
         messenger.sendMessageWithKeyboard(ctx.getChatId(), sb, keyboard);
@@ -145,12 +145,12 @@ public class WorkerStrategy implements BotUserStrategy {
 
         sb.append("\n──────────────────────────────");
 
-        UiKeyboard keyboard = UiKeyboard.ofRows(
-                UiKeyboardRow.of(
-                        new UiButton("✅ Завершить", CallbackFactory.PREFIX_TASK_DONE + task.id()),
-                        new UiButton("💬 Коммент", CallbackFactory.PREFIX_TASK_COMMENT + task.id())),
-                UiKeyboardRow.of(
-                        new UiButton("📸 Добавить фото/видео", CallbackFactory.PREFIX_TASK_MEDIA + task.id())));
+        ActionLayout keyboard = ActionLayout.ofGroups(
+                ActionGroup.of(
+                        new ActionOption("✅ Завершить", CallbackFactory.PREFIX_TASK_DONE + task.id()),
+                        new ActionOption("💬 Коммент", CallbackFactory.PREFIX_TASK_COMMENT + task.id())),
+                ActionGroup.of(
+                        new ActionOption("📸 Добавить фото/видео", CallbackFactory.PREFIX_TASK_MEDIA + task.id())));
 
         messenger.sendMessageWithKeyboard(ctx.getChatId(), messenger.escapeMarkdown(sb.toString()), keyboard);
     }
